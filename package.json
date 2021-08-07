@@ -1,5 +1,5 @@
 {
-  "name": "surepetcare",
+  "name": "node-surepetcare",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,16 @@
     "dev": "nodemon index.js",
     "test": "mocha --exit"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasvogt89/surepetcare.git"
+  },
   "keywords": [],
   "author": "Andreas <admin@andreas-vogt.ch> (https://shokodev.ch/)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreasvogt89/surepetcare/issues"
+  },
   "dependencies": {
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
