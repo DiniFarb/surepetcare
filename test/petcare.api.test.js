@@ -1,29 +1,39 @@
+/**
+ * This is used for testing the PetCareAPI Class which is the 
+ * interface to the sure petcare server 
+ */
+
 const PetCareAPI = require('../lib/PetCareAPI');
 const Utils = require('../lib/Utils');
 const expect = require('expect.js');
-let logindata = null;
+require('dotenv').config();
+let api = null;
 let household = null;
+const utils = new Utils();
 
+describe('Create API',()=>{
+    it('create api with ENV credentials', ()=> {
+        api = new PetCareAPI({
+            mail:process.env.MAIL,
+            password:process.env.PASSWORD
+        });
+        expect(api).to.be.a(PetCareAPI);
+    });
+});
 describe('Test login Petcare',()=>{
     it('Login',async ()=> {
-        
-        logindata =  await PetCareAPI.login();
-        expect(logindata.data).to.be.ok();
+        login =  await api.login();
+        expect(login).to.be.ok();
     });
-    it('has user data',async ()=> {
-        logindata =  await PetCareAPI.login();
-        expect(logindata.data.user).to.be.ok();
-    });
-    it('has token',async ()=> {
-        logindata =  await PetCareAPI.login();
-        expect(logindata.data.token).to.be.ok();
+    it('has user logged in user ID',async ()=> {
+        expect(api.loggedInUserId).to.be.a('number');
     });
 });
 
 describe('Test GET Metadata',()=>{
     let result = null;
     it('GET Metadata',async ()=> {
-        result =  await PetCareAPI.getMetaData(logindata.data);
+        result =  await api.getMetaData();
         expect(result.data).to.be.ok();
     });
 });
@@ -31,7 +41,7 @@ describe('Test GET Metadata',()=>{
 describe('Test GET Update',()=>{
     let result = null;
     it('GET Update',async ()=> {
-        result =  await PetCareAPI.getUpdate(logindata.data);
+        result =  await api.getUpdate();
         expect(result.data).to.be.ok();
         household = result.data;
     });
@@ -58,7 +68,7 @@ describe('Test GET Update',()=>{
 describe('Test GET Timeline',()=>{
     let result = null;
     it('GET Timeline',async ()=> {
-        result =  await PetCareAPI.getTimeline(household.households[0].id, logindata.data);
+        result =  await api.getTimeline(household.households[0].id);
         expect(result.data).to.be.an(Array);
     });
     it('has 25 timeline entries', ()=> {
@@ -79,15 +89,15 @@ describe('Test set pet whereabout',()=>{
     });
     it('Set new whereabaout of this pet',async ()=> {
         wherebit = household.pets[0].status.activity.where;
-        let setTo = whereBit === Utils.petPlaceCommands.INSIDE ?
-        Utils.petPlaceCommands.OUTSIDE :
-        Utils.petPlaceCommands.INSIDE 
-        result =  await PetCareAPI.setPetPlace(petId, setTo, logindata.data);
+        let setTo = whereBit === utils.petPlaceCommands.INSIDE ?
+        utils.petPlaceCommands.OUTSIDE :
+        utils.petPlaceCommands.INSIDE 
+        result =  await api.setPetPlace(petId, setTo);
         expect(result).to.be.ok();
     });
     it('Set back whereabaout of this pet',async ()=> {
         wherebit = household.pets[0].status.activity.where;
-        result =  await PetCareAPI.setPetPlace(petId, whereBit, logindata.data);
+        result =  await api.setPetPlace(petId, whereBit);
         expect(result).to.be.ok();
     });
 });

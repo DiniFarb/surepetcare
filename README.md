@@ -1,9 +1,10 @@
 # node sure petcare
 
-## TEST VERSION
+## TEST VERSION 
+Should be soon release
 
 ## TODO
- - [ ] create tests
- - [ ] loging info messages with winston
+ - [ ] create tests min 75% cov
  - [ ] specify lowest version of node
- - 
+ - [ ] pipe all something went wrong messages to error event
+ - [ ] Create docu and exampels
