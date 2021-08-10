@@ -15,8 +15,8 @@ Still some tasks open but the code base is already usable 😉
  - [ ] Finish docu and exampels
 
 
-I use this module in this [project](#https://github.com/Shokodev/mauzis) to send/command the surepetcare data over a telegram chat.  
-
+I use this module in this project to send/command the surepetcare data over a telegram chat.  
+https://github.com/Shokodev/mauzis
 
 ## Install
 
