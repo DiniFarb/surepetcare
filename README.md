@@ -14,6 +14,10 @@ Still some tasks open but the code base is already usable 😉
  - [ ] Check the reset feeder functions (they are still a bit bugy... )
  - [ ] Finish docu and exampels
 
+
+I use this module in this [project](#https://github.com/Shokodev/mauzis) to send/command the surepetcare data over a telegram chat.  
+
+
 ## Install
 
  ```bash
