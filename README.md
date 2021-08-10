@@ -95,6 +95,16 @@ See in the [options](#options) section for more details
 - The [direct_message_events](#direct_message events) listener fires all updates of your household as objects
 - The [household_property](#household property) is overwritten by every poll and holds the data of surepetcare
 - The [pets_property](#pets property) is overwritten by every poll and holds computed data of surepetcare 
+
+Functions: 
+- setDoorState
+- setPetPlace
+- resetFeeder
+- resetFeeders
+- getDeviceReport
+- getPetReport
+
+...
  
  ### household property
  
