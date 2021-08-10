@@ -5,7 +5,7 @@
 
 [![NPM](https://nodei.co/npm/node-surepetcare.png?downloads=true&downloadRank=true)](https://nodei.co/npm/node-surepetcare/)
 
-This node module is connecting to the sure petcare server via. account credentials and fetches pet and device data. 
+This node module is connecting to the sure petcare server via account credentials and fetches pet and device data. 
 
 ## TODO
 Still some tasks open but the code base is already usable 😉
@@ -76,11 +76,17 @@ try {
  const petcare = new PetCare({
         mail:"your petcare mail",
         password:"your petcare password"
-    });
+ });
  ```
 The constructor accepts also a options object in which some default settings can be overwritten.
-See in the [options](#options) section for more details 
- 
+See in the [options](#options) section for more details
+
+ ```js
+ const petcare = new PetCare({
+        mail:"your petcare mail",
+        password:"your petcare password"
+ },options);
+ ``` 
 - As soon as the instance is created it automatically begins to poll the sure petcare server 
 (default every 10s). 
 - There starts also a automatic relogin by a node-cron job for updating the account token.
@@ -88,8 +94,7 @@ See in the [options](#options) section for more details
 - The [message events](#message events) listener fires updates of your household in predefined messages  
 - The [direct_message events](#direct_message events) listener fires all updates of your household as objects
 - The [household property](#household property) is overwritten by every poll and holds the data of surepetcare
-- The [pets property](#pety property) is overwritten by every poll and holds computed data of surepetcare 
- 
+- The [pets property](#pets property) is overwritten by every poll and holds computed data of surepetcare 
  
  ### household property
  
@@ -101,23 +106,64 @@ See in the [options](#options) section for more details
 ![household](https://user-images.githubusercontent.com/30302212/128848239-ac33927d-0f88-4d8d-8f02-a165a81bea2a.png)
 
  
- 
- ### pets property
- 
+### pets property
+This property holds computed data of all pets depending on what devices you have. 
+It is updated by every poll as well. 
+
+Structure:
+```
+"name of pet": {
+ props like list below
+},
+"name of other pet": {
+ props like list below
+},
+etc.
+```
+- `name` name of pet
+- `petID` id of pet
+- `device` assigned feeder device 
+- `place` whereabout of pet
+- `deviceName`assigned feeder device name
+- `rightTarget` *fill target of right bowl
+- `leftTarget` *fill target of left bowl
+- `currentLeft` *current gram in left bowl
+- `currentRight`*current gram in right bowl
+- `lastEatenLeft` *lasttime ate in grams of left bowl 
+- `lastEatenRight`*lasttime ate in grams of right bowl
+- `eatenLeftSoFar` *has eaten today so far in grams of left bowl
+- `eatenRightSoFar` *has eaten today so far in grams of left bowl
+- `drank` *drank so far today
+- `lastFillLeft`*lasttime filled in left bowl
+- `lastFillRight`*lasttime filled in right bowl
+- `eatenLeft` *has eaten since last filling in grams of left bowl
+- `eatenRight`*has eaten since last filling in grams of right bowl
+
+*if you are using just one bowl, all infos should be just in the "left" props
  
  ## message events
- 
- ```js
+ In this listener you get updates from petcare in pre defined strings which can be custom overwritten with the [options](#options) object
 
- ```
+- Pet goes through a door => option: `petMovementText` (type 0)
+- Unknown movement of door => option: `unknownMovementText` (type 7)
+- Filling bowl/bowls => option: `filledBowlText` (type 21)
+- Pet has eaten  => option: `petHasEatonText` (type 22)
+- Feeder was reseted => option: `resetFeederText` (type 24)
+- Battery threshold reached => option: ` batteryLowText` (type 1)
+- Pet drank => option: `petDrankText` (type 29)
+- Filling Felaqua => option: `felaquaFillText` (type 30)
+- Reminder Fresh Water for Felaqua => option: `felaquaReminderText` (type 32)
+- Unknown Felaqua drinking  => option: `felaquaUnknownDrinkerText` (type 34)
  
-  ## direct_message events
- 
- ```js
- 
- ```
- 
- ## options
+## direct_message events
+In this listener you get all the timeline events of surepetcare in the same structure as the server sends it.
+The message object structure can differ from type to type, best way to see how your needed msg is structured is 
+to use a browser again. Go to https://www.surepetcare.io/ hit F12 and look in the network tab for a number entry
+as in the screen shot. (The number is your houshold id)
+
+![household-events](https://user-images.githubusercontent.com/30302212/128861134-0f030f9e-4d37-44c4-9a71-a734a54558bf.png)
+
+## options
  
  You can pass in a options property to the constructor of the PetCare Class 
  to overwrite some settings and the messages of the message events listener
