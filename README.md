@@ -1,20 +1,26 @@
 # node-surepetcare
-[![npm version](https://img.shields.io/npm/v/node-surepetcare.svg?style=flat-square)](https://www.npmjs.com/package/node-surepetcare)
+[![Dependencies](https://img.shields.io/david/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
+[![Code size](https://img.shields.io/github/languages/code-size/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
+[![files](https://img.shields.io/github/directory-file-count/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
+
+[![NPM](https://nodei.co/npm/node-surepetcare.png?downloads=true&downloadRank=true)](https://nodei.co/npm/node-surepetcare/)
 
 This node module is connecting to the sure petcare server via. account credentials and fetches pet and device data. 
 
 ## TODO
- - [ ] create tests min 75% cov
- - [ ] specify lowest version of node
- - [ ] pipe all something went wrong messages to error git event
- - [ ] Create docu and exampels
+Still some tasks open but the code base is already usable 😉
 
- ### Install
+ - [ ] create more tests (target cov 75%)
+ - [ ] Check the reset feeder functions (they are still a bit bugy... )
+ - [ ] Finish docu and exampels
+
+## Install
+
  ```bash
-npm i --save install surepetcare
+npm i node-surepetcare
  ```
 
- ### Basic Example
+## Basic Example
 
  ```js
 const PetCare = require('node-surepetcare');
@@ -34,6 +40,12 @@ try {
     petcare.on("direct_message", (err) => {
         //Here you can listen for unfiltered messages, look in the "direct_message events" section for more details
         console.log(err);
+    });
+    
+    petcare.on("started", (mes) => {
+        //The creating of the PetCare runs some async initializing. 
+        //This event will be fired as soon as all those initailizings are done.
+        console.log(mes);
     });
 
     petcare.on("info", (info) => {
@@ -76,9 +88,11 @@ See in the [options](#options) section for more details
  
  
  ### household property
+ 
  This property is updated in every poll and holds the surepetcare data. The structure of this object is 
- the same as in the surepetcare and is diffrent for user. You can easy inspect what you get there by using a browser. 
- Go to https://www.surepetcare.io/ hit F12 and look in the network tab for the second "start" XHR
+ the same as in the surepetcare and is diffrent for every user. You can easy inspect what you get there by using a browser. 
+ Go to https://www.surepetcare.io/ hit F12 and look in the network tab for the second "start" XHR. What you can see there 
+ under data will be in the houshold property
  
 ![household](https://user-images.githubusercontent.com/30302212/128848239-ac33927d-0f88-4d8d-8f02-a165a81bea2a.png)
 
@@ -104,7 +118,7 @@ See in the [options](#options) section for more details
  You can pass in a options property to the constructor of the PetCare Class 
  to overwrite some settings and the messages of the message events listener
  
- Here a example of a full list of all options as I use it (In swiss german 😛):
+ Here is a example of a full options object of all possible settings, as I use it (In swiss german 😛):
  
  ```js
  const options = {
@@ -148,4 +162,8 @@ See in the [options](#options) section for more details
  
  
  ```
+ 
+## License
+
+[MIT](LICENSE)
  
