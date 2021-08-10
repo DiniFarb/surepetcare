@@ -59,11 +59,24 @@ function testmain(petcare){
             }));
             expect(report).to.be.a('string');
         });
+        testPetplacing(petcare);
+        testDoorCommants(petcare);   
+    });
+};
+
+function testPetplacing(petcare){
+    describe('Test set pet palce',async function () {
+        this.timeout(15000);
+        let testPet = null;
+        let testPetWherabout = null;
         it('verify test pet',async ()=> {
-            expect(petcare.household.petCareData.pets[0].id).to.be.a('number');
+            testPet = petcare.household.petCareData.pets[0];
+            expect(testPet).to.be.ok();
+            expect(testPet.id).to.be.a('number');
         });
         it('verify whereabout of test pet',async ()=> {
-            expect(petcare.household.petCareData.pets[0].status.activity.where).to.be.a('number');
+            testPetWherabout = testPet.status.activity.where;
+            expect(testPetWherabout).to.be.a('number');
         });
         it('Set new whereabaout of test pet', async ()=> {
             let report = await new Promise(((resolve, reject) =>{
@@ -73,15 +86,47 @@ function testmain(petcare){
                 petcare.on('error',(err)=>{
                     reject(err);
                 });  
-                let whereBit = petcare.household.petCareData.pets[0].status.activity.where;
-                let setTo = whereBit === petcare.utils.petPlaceCommands.INSIDE ?
+                let setTo = testPetWherabout === petcare.utils.petPlaceCommands.INSIDE ?
                 petcare.utils.petPlaceCommands.OUTSIDE :
                 petcare.utils.petPlaceCommands.INSIDE;
-                petcare.setPetPlace(petcare.household.petCareData.pets[0].name, setTo);
+                petcare.setPetPlace(testPet.name, setTo);
                 }));
         expect(report).to.be.a('string');
         });
-        it('Set back whereabaout of test pet', async ()=> {
+        it('Set back whereabout of test pet', async ()=> {
+            // needs to wait at least one update cycle
+            await new Promise(r => setTimeout(r, 12000));
+            let report = await new Promise(((resolve, reject) =>{
+                petcare.on('message',(msg)=>{
+                    resolve(msg);
+                });
+                petcare.on('error',(err)=>{
+                    reject(err);
+                }); 
+                petcare.setPetPlace(testPet.name, testPetWherabout);
+                }));
+            expect(report).to.be.a('string');
+        });
+    });
+};
+
+function testDoorCommants(petcare){
+    describe('Test door commants',async function () {
+        this.timeout(20000);
+        let testDoor = null;
+        let testDoorState = null;
+        it('verify test door',async ()=> {
+            let testDoors = petcare.household.petCareData.devices.filter(d => d.product_id === petcare.utils.products.DOOR 
+                || d.product_id === petcare.utils.products.DOOR_SMALL);   
+            testDoor = testDoors[0];    
+            expect(testDoor).to.be.ok();
+            expect(testDoor.id).to.be.a('number');
+        });
+        it('verify state of test door',async ()=> {
+            testDoorState = testDoor.status.locking.mode;
+            expect(testDoorState).to.be.a('number');
+        });
+        it('Set new door state', async ()=> {
             let report = await new Promise(((resolve, reject) =>{
                 petcare.on('message',(msg)=>{
                     resolve(msg);
@@ -89,32 +134,32 @@ function testmain(petcare){
                 petcare.on('error',(err)=>{
                     reject(err);
                 });  
-                let whereBit = petcare.household.petCareData.pets[0].status.activity.where;
-                let setTo = whereBit === petcare.utils.petPlaceCommands.INSIDE ?
-                petcare.utils.petPlaceCommands.OUTSIDE :
-                petcare.utils.petPlaceCommands.INSIDE;
-                petcare.setPetPlace(petcare.household.petCareData.pets[0].name, setTo);
+                let setTo = testDoorState === petcare.utils.doorCommands.OPEN ?
+                petcare.utils.doorCommands.CLOSE :
+                petcare.utils.doorCommands.OPEN;
+                petcare.setDoorState(testDoor.name, setTo);
                 }));
-            expect(report).to.be.a('string');
+        expect(report).to.be.a('string');
         });
-        it('reset feeders', async ()=> {
-            console.log('This test fails if not all feeders are opened!')
+        it('Set back door state', async ()=> {
+            // needs to wait at least one update cycle
+            await new Promise(r => setTimeout(r, 12000));
             let report = await new Promise(((resolve, reject) =>{
-                let count = 0;
                 petcare.on('message',(msg)=>{
-                    console.log(msg);
-                    count++;
-                    if(count === 3){
-                        resolve(msg);
-                    }
+                    resolve(msg);
                 });
                 petcare.on('error',(err)=>{
                     reject(err);
                 });  
-                petcare.resetFeeders(petcare.utils.feederResetCommands.BOTH);
-            }));
+                petcare.setDoorState(testDoor.name, testDoorState);
+                }));
             expect(report).to.be.a('string');
-        });     
+        });
     });
+};
+
+function testResetFeeder(petcare){
+    //TODO
+
 }
 

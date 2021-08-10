@@ -103,9 +103,9 @@ describe('Test set pet whereabout',()=>{
 });
 
 describe('Test set door state',()=>{
-    
+    //TODO
 });
 
 describe('Test reset feeder',()=>{
-    
+    //TODO
 });
