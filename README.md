@@ -91,10 +91,10 @@ See in the [options](#options) section for more details
 (default every 10s). 
 - There starts also a automatic relogin by a node-cron job for updating the account token.
 (default every day at 11:00 and 23:00)
-- The [message events](#message events) listener fires updates of your household in predefined messages  
-- The [direct_message events](#direct_message events) listener fires all updates of your household as objects
-- The [household property](#household property) is overwritten by every poll and holds the data of surepetcare
-- The [pets property](#pets property) is overwritten by every poll and holds computed data of surepetcare 
+- The [message_events](#message events) listener fires updates of your household in predefined messages  
+- The [direct_message_events](#direct_message events) listener fires all updates of your household as objects
+- The [household_property](#household property) is overwritten by every poll and holds the data of surepetcare
+- The [pets_property](#pets property) is overwritten by every poll and holds computed data of surepetcare 
  
  ### household property
  
