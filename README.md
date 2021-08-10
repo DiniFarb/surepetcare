@@ -5,7 +5,7 @@
 
 [![NPM](https://nodei.co/npm/node-surepetcare.png?downloads=true&downloadRank=true)](https://nodei.co/npm/node-surepetcare/)
 
-This node module is connecting to the sure petcare server via account credentials and fetches pet and device data. 
+This node module lets you connect to the sure petcare server and fetch/controll pet and device data. 
 
 ## TODO
 Still some tasks open but the code base is already usable 😉
@@ -15,8 +15,8 @@ Still some tasks open but the code base is already usable 😉
  - [ ] Finish docu and exampels
 
 
-I use this module in this project to send/command the surepetcare data over a telegram chat.  
-https://github.com/Shokodev/mauzis
+I use this module in a project to send/command the surepetcare data over a telegram chat. 
+You can find it here: https://github.com/Shokodev/mauzis
 
 ## Install
 
@@ -37,18 +37,20 @@ try {
     });
     
     petcare.on("message", (mes) => {
-        //Here you can listen for pre defined messages, look in the "message events" section for more details
+        //Here you can listen for pre defined messages 
+        //look in the "message events" section for more details
         console.log(mes);
     });
     
     petcare.on("direct_message", (err) => {
-        //Here you can listen for unfiltered messages, look in the "direct_message events" section for more details
+        //Here you can listen for unfiltered messages 
+        //look in the "direct_message events" section for more details
         console.log(err);
     });
     
     petcare.on("started", (mes) => {
-        //The creating of the PetCare runs some async initializing. 
-        //This event will be fired as soon as all those initailizings are done.
+        //This event will be fired as soon as the initializing is done   
+        //after creating a new instance of PetCare
         console.log(mes);
     });
 
@@ -69,7 +71,7 @@ try {
 
  ```
  
- ## PetCare Class
+ ## PetCare Instance
  
  By creating a new instance, you have to pass in a credentails otherwise an error will be thrown.
  ```js
@@ -91,42 +93,45 @@ See in the [options](#options) section for more details
 (default every 10s). 
 - There starts also a automatic relogin by a node-cron job for updating the account token.
 (default every day at 11:00 and 23:00)
-- The [message_events](#message events) listener fires updates of your household in predefined messages  
-- The [direct_message_events](#direct_message events) listener fires all updates of your household as objects
-- The [household_property](#household property) is overwritten by every poll and holds the data of surepetcare
-- The [pets_property](#pets property) is overwritten by every poll and holds computed data of surepetcare 
 
-Functions: 
-- setDoorState
-- setPetPlace
-- resetFeeder
-- resetFeeders
-- getDeviceReport
-- getPetReport
 
-...
+### functions of PetCare instance
+| name | parameters | description
+|---|---|---|
+|setDoorState |`doorName`:String <br /> `command`:Number <br /> (0=open) (1=close) |use this to look/unlook a flap/door|
+|setPetPlace|`petName`:String  <br /> `command`:Number <br /> (1=inside) (2=outside)|set your pet whereavout In/Outside|
+|resetFeeder|`feederName`:String <br /> `command`:Number <br /> (1=left) (2=right) (3=both)|reset your feeder bowls|
+|resetFeeders|`command`:Number <br /> (1=left) (2=right) (3=both) |reset all your feeders at once|
+|getDeviceReport|-|get a report as String of all your devices and their battery levels|
+|getPetReport|-|get a report as String of all your pet whereabouts and states of your doors/flaps| 
  
- ### household property
- 
- This property is updated in every poll and holds the surepetcare data. The structure of this object is 
- the same as in the surepetcare and is diffrent for every user. You can easy inspect what you get there by using a browser. 
- Go to https://www.surepetcare.io/ hit F12 and look in the network tab for the second "start" XHR. What you can see there 
- under data will be in the houshold property
+### properties of PetCare instnce
+| name | description
+|---|---|
+|household|see below @ household property|
+|pets|see below @ pets property|
+|felaqua_level|current level of felaqua in ml (if you have one)|
+
+#### household property
+This property is updated in every poll and holds the surepetcare data. The structure of this object is 
+the same as in the surepetcare and is diffrent for every user. You can easy inspect what you get there by using a browser. 
+Go to https://www.surepetcare.io/ hit F12 and look in the network tab for the second "start" XHR. What you can see there 
+under data will be in the houshold property
  
 ![household](https://user-images.githubusercontent.com/30302212/128848239-ac33927d-0f88-4d8d-8f02-a165a81bea2a.png)
 
  
-### pets property
+#### pets property
 This property holds computed data of all pets depending on what devices you have. 
 It is updated by every poll as well. 
 
 Structure:
-```
+```json
 "name of pet": {
- props like list below
+ "props like list below"
 },
 "name of other pet": {
- props like list below
+ "props like list below"
 },
 etc.
 ```
