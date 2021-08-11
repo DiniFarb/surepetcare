@@ -200,8 +200,8 @@ as in the screen shot. (The number is your houshold id)
     tareRightText: "links",
     tareRightText: "rechts",
     tareBothText: "beidi",
-    doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${this.doorStates[state]}😝`,
-    petIsAlready: (petName, state) => `${petName} is isch dänk ${this.placeNames[state]}🙄`,
+    doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${state}😝`,
+    petIsAlready: (petName, state) => `${petName} is isch dänk ${state}🙄`,
     petMovementText: (petName, bit) => bit === 1 ? 
         `${petName} isch jetz dinne, Hello ${petName} 😍` :
         bit === 2 ? `${petName} isch use, stay safe ❤️` : 
