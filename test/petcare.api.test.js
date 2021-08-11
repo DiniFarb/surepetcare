@@ -29,7 +29,6 @@ describe('Test login Petcare',()=>{
         expect(api.loggedInUserId).to.be.a('number');
     });
 });
-
 describe('Test GET Metadata',()=>{
     let result = null;
     it('GET Metadata',async ()=> {
@@ -37,7 +36,6 @@ describe('Test GET Metadata',()=>{
         expect(result.data).to.be.ok();
     });
 });
-
 describe('Test GET Update',()=>{
     let result = null;
     it('GET Update',async ()=> {
@@ -64,7 +62,6 @@ describe('Test GET Update',()=>{
         expect(result.data.user).to.be.ok();
     });
 });
-
 describe('Test GET Timeline',()=>{
     let result = null;
     it('GET Timeline',async ()=> {
@@ -75,7 +72,6 @@ describe('Test GET Timeline',()=>{
         expect(result.data.length).to.be(25);
     });
 });
-
 describe('Test set pet whereabout',()=>{
     let petId = null;
     let whereBit = null;
@@ -101,11 +97,48 @@ describe('Test set pet whereabout',()=>{
         expect(result).to.be.ok();
     });
 });
-
-describe('Test set door state',()=>{
-    //TODO
+describe('Test door commants',async function () {
+    this.timeout(20000);
+    let testDoor = null;
+    let testDoorState = null;
+    it('verify test door',async ()=> {
+        let testDoors = household.devices.filter(d => d.product_id === utils.products.DOOR 
+            || d.product_id === utils.products.DOOR_SMALL);   
+        testDoor = testDoors[0];    
+        expect(testDoor).to.be.ok();
+        expect(testDoor.id).to.be.a('number');
+    });
+    it('verify state of test door',async ()=> {
+        testDoorState = testDoor.status.locking.mode;
+        expect(testDoorState).to.be.a('number');
+    });
+    it('Set new door state', async ()=> {
+        let setTo = testDoorState === utils.doorCommands.OPEN ?
+        utils.doorCommands.CLOSE :
+        utils.doorCommands.OPEN;
+        let result = await api.toggleDoor(testDoor.id, setTo);
+        expect(result.results).to.not.be.empty();
+    });
+    it('Set back door state', async ()=> {
+        // give petcare some time ...
+        await new Promise(r => setTimeout(r, 8000));
+        let result = await api.toggleDoor(testDoor.id, testDoorState);
+        expect(result.results).to.not.be.empty();
+    });
 });
-
-describe('Test reset feeder',()=>{
-    //TODO
+describe('Test reset feeder',async function () {
+    this.timeout(20000);
+    let testFeeder = null;
+    it('verify test feeder device',async ()=> {
+        let testFeeders = household.devices.filter(d => d.product_id === utils.products.FEEDER_LITE 
+            || d.product_id === utils.products.FEEDER);   
+        testFeeder = testFeeders[0];    
+        expect(testFeeder).to.be.ok();
+        expect(testFeeder.id).to.be.a('number');
+    });
+    it('reset feeder ',async () => {
+        let result = await api.resetFeeder(utils.feederResetCommands.LEFT,testFeeder.id);
+        expect(result).to.be.ok();
+        expect(result.results).to.not.be.empty();
+    });
 });

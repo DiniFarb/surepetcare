@@ -13,6 +13,9 @@ Still some tasks open but the code base is already usable 😉
  - [ ] create more tests (target cov 75%)
  - [ ] Check the reset feeder functions (they are still a bit bugy... )
  - [ ] Finish docu and exampels
+ - [ ] PetCareAPI (some throws need error cunstructor)
+ - [ ] Movement text function replace bit with string(state) value
+
 
 
 I use this module in a project to send/command the surepetcare data over a telegram chat. 
@@ -201,7 +204,7 @@ as in the screen shot. (The number is your houshold id)
     tareRightText: "rechts",
     tareBothText: "beidi",
     doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${state}😝`,
-    petIsAlready: (petName, state) => `${petName} is isch dänk ${state}🙄`,
+    petIsAlready: (petName, state) => `${petName} isch dänk scho ${state}🙄`,
     petMovementText: (petName, bit) => bit === 1 ? 
         `${petName} isch jetz dinne, Hello ${petName} 😍` :
         bit === 2 ? `${petName} isch use, stay safe ❤️` : 
@@ -211,13 +214,13 @@ as in the screen shot. (The number is your houshold id)
         "Es angers chätzli het id stube gluegt 😺",
     petHasEatonText: (petName, left, right) => `${petName} hat gässe:\n ${left}g droche & ${right}g nass`,
     filledBowlText: (bowlName, left, right) => `${bowlName} gfüllt mit:\n ${left}g droche & ${right}g nass`, 
-    resetFeederText: (bowlName, tareVal) => `${bowlName} isch ${this.tareText[tareVal]} zrüggsetzt`,
+    resetFeederText: (bowlName, tareVal) => `${bowlName} isch ${tareVal} zrüggsetzt worde`,
     batteryLowText: (deviceName) => `${deviceName} het fasch ke saft me 🙀`,
     petDrankText: (petName,val) => `${petName} het ${val}ml drunke💧`,
     felaquaFillText:(deviceName,val) => `${deviceName} mit ${val}ml befüllt`,
     felaquaReminderText: (deviceName) => `${deviceName} set neus wasser ha`,
     felaquaUnknownDrinkerText: (deviceName, val) => `Igrendöpper het ${val}ml drunke us ${deviceName}`,
-    petWhereaboutText:(petName,where) => `${petName} isch ${where} ${where === "dinne" ? '😊': '🧐'}`
+    petWhereaboutText:(petName,where) => `${petName} isch iz ${where} ${where === "dinne" ? '😊': '🧐'}`
  } 
  
  const petcare = new PetCare({
