@@ -60,7 +60,12 @@ function testmain(petcare){
             expect(report).to.be.a('string');
         });
         testPetplacing(petcare);
-        testDoorCommants(petcare);   
+        testDoorCommants(petcare);
+        //only if all feeders are opened
+        testResetAllFeeder(petcare);
+        testResetFeeder(petcare);
+
+        testGetTimelineBackTo(petcare)
     });
 };
 
@@ -158,8 +163,65 @@ function testDoorCommants(petcare){
     });
 };
 
-function testResetFeeder(petcare){
-    //TODO
+function testResetAllFeeder(petcare){
+    describe('Test reset all feeders',async function () {
+        /* It takes a long time in the petcare server until all 
+           feeders are reseted and the messages ar sent.
+           You may need to increase the timeout
+        */
+        this.timeout(25000);
+        it('reset all feeders left', async ()=> {
+            let report = await new Promise(((resolve, reject) =>{
+                let res = [];
+                petcare.on('message',(msg)=>{
+                    res.push(msg);
+                    if(res.length === 3) 
+                    resolve(msg.reduce((a,v)=>a+v),"");
+                });
+                petcare.on('error',(err)=>{
+                   reject(err); 
+                });  
+                petcare.resetFeeders(petcare.utils.feederResetCommands.BOTH);
+                }));
+            expect(report).to.be.a('string');
+        });
+    });
 
 }
 
+function testResetFeeder(petcare){
+    describe('Test reset feeder',async function () {
+        this.timeout(20000);
+        let testFeeder = null;
+        it('verify test feeder',async ()=> {
+            let testFeeders = petcare.household.petCareData.devices.filter(d => d.product_id === petcare.utils.products.FEEDER 
+                || d.product_id === petcare.utils.products.FEEDER_LITE);   
+            testFeeder = testFeeders[0];    
+            expect(testFeeder).to.be.ok();
+            expect(testFeeder.id).to.be.a('number');
+        });
+        it('reset test feeder left', async ()=> {
+            let report = await new Promise(((resolve, reject) =>{
+                petcare.on('message',(msg)=>{
+                   resolve(msg);
+                });
+                petcare.on('error',(err)=>{
+                   reject(err); 
+                });  
+                petcare.resetFeeder(testFeeder.name, petcare.utils.feederResetCommands.LEFT);
+                }));
+            expect(report).to.be.a('string');
+        });
+    });
+}
+
+function testGetTimelineBackTo(petcare){
+    describe('Test timeline',async function () {
+        this.timeout(20000);
+        it('get timeline entries ',async ()=> {
+            let timeline = await petcare.getTimelineEntriesBackTo(new Date());
+            expect(timeline).to.be.ok();
+            expect(timeline).to.have.length(25);
+        });
+    });
+}

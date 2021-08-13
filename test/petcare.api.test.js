@@ -129,6 +129,13 @@ describe('Test door commants',async function () {
 describe('Test reset feeder',async function () {
     this.timeout(20000);
     let testFeeder = null;
+    /*Unfortunately does the response of this request not 
+    clearly say if the feeder was really reseted. 
+    If the feeder device is not opened while you send the req,
+    you get a valid response anyway but no reseting  was done at all. 
+    Because of this the reset message is pulled out over the message 
+    listener(timeline) of petcare.
+    */
     it('verify test feeder device',async ()=> {
         let testFeeders = household.devices.filter(d => d.product_id === utils.products.FEEDER_LITE 
             || d.product_id === utils.products.FEEDER);   

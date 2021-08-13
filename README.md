@@ -10,12 +10,13 @@ This node module lets you connect to the sure petcare server and fetch/controll 
 ## TODO
 Still some tasks open but the code base is already usable 😉
 
- - [ ] create more tests (target cov 75%)
- - [ ] Check the reset feeder functions (they are still a bit bugy... )
- - [ ] Finish docu and exampels
- - [ ] PetCareAPI (some throws need error cunstructor)
- - [ ] Movement text function replace bit with string(state) value
-
+Planned/working on changes
+ - create more tests
+ - Check the reset feeder functions (they are still a bit bugy... )
+ - Finish docu and exampels
+ - Movement text function replace bit with string(state) value
+ - Add more functions to PetCare class
+ - Throttle message listeners if by changeable parameters
 
 
 I use this module in a project to send/command the surepetcare data over a telegram chat. 
@@ -105,9 +106,9 @@ See in the [options](#options) section for more details
 |setPetPlace|`petName`:String  <br /> `command`:Number <br /> (1=inside) (2=outside)|set your pet whereavout In/Outside|
 |resetFeeder|`feederName`:String <br /> `command`:Number <br /> (1=left) (2=right) (3=both)|reset your feeder bowls|
 |resetFeeders|`command`:Number <br /> (1=left) (2=right) (3=both) |reset all your feeders at once|
+|getTimelineEntriesBackTo|`date`:Date|get all timeline entries back to the date you passed in <br />be patient if go back to a long time ago|  
 |getDeviceReport|-|get a report as String of all your devices and their battery levels|
 |getPetReport|-|get a report as String of all your pet whereabouts and states of your doors/flaps| 
- 
 ### properties of PetCare instnce
 | name | description
 |---|---|
