@@ -16,8 +16,6 @@ Planned/working on changes
  - Finish docu and exampels
  - Movement text function replace bit with string(state) value
  - Add more functions to PetCare class
- - Throttle message listeners if by changeable parameters
-
 
 I use this module in a project to send/command the surepetcare data over a telegram chat. 
 You can find it here: https://github.com/Shokodev/mauzis
