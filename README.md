@@ -41,13 +41,13 @@ try {
     });
     
     petcare.on("message", (mes) => {
-        //Here you can listen for pre defined messages 
+        // Here you can listen for pre defined messages 
         //look in the "message events" section for more details
         console.log(mes);
     });
     
     petcare.on("direct_message", (err) => {
-        //Here you can listen for unfiltered messages 
+        //* Here you can listen for unfiltered messages 
         //look in the "direct_message events" section for more details
         console.log(err);
     });
@@ -191,6 +191,7 @@ as in the screen shot. (The number is your houshold id)
  
  ```js
  const options = {
+    message_throttle_ms: 200,
     update_polling_seconds: 10,
     battery_full: 1.6,
     battery_low: 1.2,

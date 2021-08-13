@@ -1,5 +1,6 @@
 module.exports = {
     update_polling_seconds: 10,
+    message_throttle_ms: 100,
     battery_full: 1.6,
     battery_low: 1.2,
     login_cycle: '0 11,23 * * *',
