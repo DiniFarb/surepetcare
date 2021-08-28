@@ -1,6 +1,6 @@
 {
   "name": "node-surepetcare",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Interact with sure petcare server",
   "main": "index.js",
   "scripts": {
