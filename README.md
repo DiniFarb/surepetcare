@@ -9,7 +9,7 @@ This node module lets you connect to the sure petcare server and fetch/controll 
 
 ## ALERT
 Petcare has problems with the timeline(see reviews in paly store) this affects also the behavior for this code:
-    - Sometimes the`message` and `direct_message` listener gets updates delayed 
+    - Sometimes the`message` and `direct_message` listener are getting messages delayed 
     - The computed property `pets` can have wrong values  
 
 ## TODO
