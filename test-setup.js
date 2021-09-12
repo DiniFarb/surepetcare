@@ -5,6 +5,7 @@ const petcareOptions = require('./options');
 
 const petcare = function setup() {
     try {
+      console.log(process.env.MAIL);
         const petcare = new PetCare({
               mail:process.env.MAIL,
               password:process.env.PASSWORD
