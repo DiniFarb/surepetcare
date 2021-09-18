@@ -27,7 +27,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm i
-    - run: npm test:main
+    - run: npm run test:main
     env:
       MAIL: ${{ secrets.MAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
