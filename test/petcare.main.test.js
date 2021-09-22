@@ -62,8 +62,8 @@ function testmain(petcare){
         testPetplacing(petcare);
         testDoorCommants(petcare);
         //only if all feeders are opened
-        testResetAllFeeder(petcare);
-        testResetFeeder(petcare);
+        //testResetAllFeeder(petcare);
+        //testResetFeeder(petcare);
         testGetTimelineBackTo(petcare)
     });
 };
@@ -116,7 +116,7 @@ function testPetplacing(petcare){
 
 function testDoorCommants(petcare){
     describe('Test door commants',async function () {
-        this.timeout(20000);
+        this.timeout(30000);
         let testDoor = null;
         let testDoorState = null;
         it('verify test door',async ()=> {
@@ -147,7 +147,7 @@ function testDoorCommants(petcare){
         });
         it('Set back door state', async ()=> {
             // needs to wait at least one update cycle
-            await new Promise(r => setTimeout(r, 12000));
+            await new Promise(r => setTimeout(r, 11000));
             let report = await new Promise(((resolve, reject) =>{
                 petcare.on('message',(msg)=>{
                     resolve(msg);
@@ -157,6 +157,7 @@ function testDoorCommants(petcare){
                 });  
                 petcare.setDoorState(testDoor.name, testDoorState);
                 }));
+            await new Promise(r => setTimeout(r, 4000));
             expect(report).to.be.a('string');
         });
     });
@@ -190,7 +191,7 @@ function testResetAllFeeder(petcare){
 
 function testResetFeeder(petcare){
     describe('Test reset feeder',async function () {
-        this.timeout(20000);
+        this.timeout(30000);
         let testFeeder = null;
         it('verify test feeder',async ()=> {
             let testFeeders = petcare.household.petCareData.devices.filter(d => d.product_id === petcare.utils.products.FEEDER 
