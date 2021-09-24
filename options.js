@@ -1,8 +1,8 @@
 module.exports = {
     update_polling_seconds: 10,
     message_throttle_ms: 100,
-    battery_full: 1.6,
-    battery_low: 1.2,
+    battery_full: 1.2,
+    battery_low: 0.9,
     login_cycle: '0 11,23 * * *',
     somethingWrongMsg: "öpis isch nid guet😑",
     successMsg: "ok 😊",
@@ -12,7 +12,7 @@ module.exports = {
     petOutsideText: "dusse",
     tareRightText: "links",
     tareRightText: "rechts",
-    tareBothText: "beidi",
+    tareBothText: "uf beidne site",
     doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${state}😝`,
     petIsAlready: (petName, state) => `${petName} is isch dänk ${state}🙄`,
     petMovementText: (petName, bit) => bit === 1 ? 
@@ -24,7 +24,7 @@ module.exports = {
         "Es angers chätzli het id stube gluegt 😺",
     petHasEatonText: (petName, left, right) => `${petName} hat gässe:\n ${left}g droche & ${right}g nass`,
     filledBowlText: (bowlName, left, right) => `${bowlName} gfüllt mit:\n ${left}g droche & ${right}g nass`, 
-    resetFeederText: (bowlName, tareVal) => `${bowlName} isch ${tareVal} zrüggsetzt`,
+    resetFeederText: (bowlName, tareVal) => `${bowlName} isch ${tareVal} zrüggsetzt worde`,
     batteryLowText: (deviceName) => `${deviceName} het fasch ke saft me 🙀`,
     petDrankText: (petName,val) => `${petName} het ${val}ml drunke💧`,
     felaquaFillText:(deviceName,val) => `${deviceName} mit ${val}ml befüllt`,
