@@ -1,6 +1,6 @@
 {
   "name": "node-surepetcare",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Interact with sure petcare server",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,11 @@
     "type": "git",
     "url": "https://github.com/andreasvogt89/surepetcare.git"
   },
-  "keywords": ["surepetcare","api","cloud"],
+  "keywords": [
+    "surepetcare",
+    "api",
+    "cloud"
+  ],
   "author": "Andreas <admin@andreas-vogt.ch> (https://shokodev.ch/)",
   "license": "MIT",
   "bugs": {
@@ -20,8 +24,7 @@
   },
   "dependencies": {
     "node-cron": "^3.0.0",
-    "node-fetch": "^3.0.0",
-    "winston": "^3.3.3"
+    "node-fetch": "^3.0.0"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",

@@ -67,8 +67,7 @@ try {
     });
 
     petcare.on("error", (err) => {
-        //All errors are already logged to the console with the winston framework 
-        //if you need them to send anywhere else, you can use this listener
+        //In case you need to notify somthing otherwise errors will be logged to the console 
         console.log(err);
     });
     
