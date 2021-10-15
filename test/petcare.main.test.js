@@ -1,4 +1,5 @@
 const expect = require('expect.js');
+const { utils } = require('mocha');
 
 describe('Create instance and start',async function () {
     this.timeout(10000); //10 seconds
@@ -13,7 +14,7 @@ describe('Create instance and start',async function () {
 function start() {
     return new Promise(((resolve, reject) =>{
         try {
-            let pc = require('../test-setup');
+            let pc = require('./test-setup');
             pc.on('started',(msg)=>{
                 resolve({pc:pc,msg:msg});
             });
@@ -138,9 +139,7 @@ function testDoorCommants(petcare){
                 petcare.on('error',(err)=>{
                     reject(err);
                 });  
-                let setTo = testDoorState === petcare.utils.doorCommands.OPEN ?
-                petcare.utils.doorCommands.CLOSE :
-                petcare.utils.doorCommands.OPEN;
+                let setTo = [0,1,2,3].filter(f=>f!==testDoorState)[Math.floor(Math.random() * (2 - 0) + 0)]
                 petcare.setDoorState(testDoor.name, setTo);
                 }));
         expect(report).to.be.a('string');

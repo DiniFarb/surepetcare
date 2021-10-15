@@ -113,9 +113,7 @@ describe('Test door commants',async function () {
         expect(testDoorState).to.be.a('number');
     });
     it('Set new door state', async ()=> {
-        let setTo = testDoorState === utils.doorCommands.OPEN ?
-        utils.doorCommands.CLOSE :
-        utils.doorCommands.OPEN;
+        let setTo = [0,1,2,3].filter(f=>f!==testDoorState)[Math.floor(Math.random() * (2 - 0) + 0)];    
         let result = await api.toggleDoor(testDoor.id, setTo);
         expect(result.results).to.not.be.empty();
     });

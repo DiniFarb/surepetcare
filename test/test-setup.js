@@ -1,7 +1,7 @@
-const PetCare = require('./index');
+const PetCare = require('../index');
 require('dotenv').config();
 
-const petcareOptions = require('./options');
+const petcareOptions = require('../options');
 
 const petcare = function setup() {
     try {

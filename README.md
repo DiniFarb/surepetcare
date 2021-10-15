@@ -104,7 +104,7 @@ See in the [options](#options) section for more details
 ### functions of PetCare instance
 | name | parameters | description
 |---|---|---|
-|setDoorState |`doorName`:String <br /> `command`:Number <br /> (0=open) (1=close) |use this to look/unlook a flap/door|
+|setDoorState |`doorName`:String <br /> `command`:Number <br /> (0=open) (1=lock_in) (2=lock_out) (3=lock_all) |use this to look/unlook a flap/door|
 |setPetPlace|`petName`:String  <br /> `command`:Number <br /> (1=inside) (2=outside)|set your pet whereavout In/Outside|
 |resetFeeder|`feederName`:String <br /> `command`:Number <br /> (1=left) (2=right) (3=both)|reset your feeder bowls|
 |resetFeeders|`command`:Number <br /> (1=left) (2=right) (3=both) |reset all your feeders at once|
@@ -193,22 +193,24 @@ as in the screen shot. (The number is your houshold id)
  
  ```js
  const options = {
-    message_throttle_ms: 200,
     update_polling_seconds: 10,
-    battery_full: 1.6,
-    battery_low: 1.2,
+    message_throttle_ms: 100,
+    battery_full: 1.2,
+    battery_low: 0.9,
     login_cycle: '0 11,23 * * *',
     somethingWrongMsg: "öpis isch nid guet😑",
     successMsg: "ok 😊",
     doorOpenText: "offe",
-    doorClosedText: "zue",
+    doorlockedInText:"zue vo inne",
+    doorlockedOutText:"zue vo usse",
+    aboutlockedAllText:"ganz zue",
     petInsideText: "dinne",
     petOutsideText: "dusse",
     tareRightText: "links",
     tareRightText: "rechts",
-    tareBothText: "beidi",
+    tareBothText: "uf beidne site",
     doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${state}😝`,
-    petIsAlready: (petName, state) => `${petName} isch dänk scho ${state}🙄`,
+    petIsAlready: (petName, state) => `${petName} is isch dänk ${state}🙄`,
     petMovementText: (petName, bit) => bit === 1 ? 
         `${petName} isch jetz dinne, Hello ${petName} 😍` :
         bit === 2 ? `${petName} isch use, stay safe ❤️` : 
@@ -224,8 +226,8 @@ as in the screen shot. (The number is your houshold id)
     felaquaFillText:(deviceName,val) => `${deviceName} mit ${val}ml befüllt`,
     felaquaReminderText: (deviceName) => `${deviceName} set neus wasser ha`,
     felaquaUnknownDrinkerText: (deviceName, val) => `Igrendöpper het ${val}ml drunke us ${deviceName}`,
-    petWhereaboutText:(petName,where) => `${petName} isch iz ${where} ${where === "dinne" ? '😊': '🧐'}`
- } 
+    petWhereaboutText:(petName,where) => `${petName} isch ${where} ${where === "dinne" ? '😊': '🧐'}`
+} 
  
  const petcare = new PetCare({
         mail:"your petcare mail",
