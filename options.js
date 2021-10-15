@@ -9,7 +9,7 @@ module.exports = {
     doorOpenText: "offe",
     doorlockedInText:"zue vo inne",
     doorlockedOutText:"zue vo usse",
-    aboutlockedAllText:"ganz zue",
+    doorlockedAllText:"ganz zue",
     petInsideText: "dinne",
     petOutsideText: "dusse",
     tareRightText: "links",
