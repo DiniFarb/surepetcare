@@ -1,7 +1,4 @@
 # node-surepetcare
-[![Dependencies](https://img.shields.io/david/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
-[![Code size](https://img.shields.io/github/languages/code-size/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
-[![files](https://img.shields.io/github/directory-file-count/andreasvogt89/surepetcare)](https://github.com/andreasvogt89/surepetcare)
 
 [![NPM](https://nodei.co/npm/node-surepetcare.png?downloads=true&downloadRank=true)](https://nodei.co/npm/node-surepetcare/)
 
@@ -13,8 +10,7 @@ This node module lets you connect to the sure petcare server and fetch/controll 
 >- Sometimes the `message` and `direct_message` listener is getting updates delayed 
 >- The computed property `pets` can have wrong values  
 
-## TODO
-Still some tasks open but the code base is already usable 😉
+## Example Usage
 
 I use this module in a project to send/command the surepetcare data over a telegram chat. 
 You can find it here: https://github.com/Shokodev/mauzis
@@ -222,16 +218,3 @@ as in the screen shot. (The number is your houshold id)
     felaquaUnknownDrinkerText: (deviceName, val) => `Igrendöpper het ${val}ml drunke us ${deviceName}`,
     petWhereaboutText:(petName,where) => `${petName} isch ${where} ${where === "dinne" ? '😊': '🧐'}`
 }
- 
- const petcare = new PetCare({
-        mail:"your petcare mail",
-        password:"your petcare password"
- },options);
- 
- 
- ```
- 
-## License
-
-[MIT](LICENSE)
- 
