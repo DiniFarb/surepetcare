@@ -1,4 +1,4 @@
-const petcare = require('./test-setup');
+import petcare from './test-setup.js';
 
 petcare.on("message", (mes) => {
     // Here you can listen for pre defined messages 

@@ -1,10 +1,10 @@
-const expect = require('expect.js');
-const { utils } = require('mocha');
+import expect from 'expect.js';
+import pc from './test-setup.js';
 
 describe('Create instance and start',async function () {
     this.timeout(10000); //10 seconds
     it('has started',async () => {
-        res = await start();
+        let res = await start();
         expect(start).to.not.throwException();
         expect(res.msg).to.be.equal('started');
         testmain(res.pc);
@@ -14,7 +14,6 @@ describe('Create instance and start',async function () {
 function start() {
     return new Promise(((resolve, reject) =>{
         try {
-            let pc = require('./test-setup');
             pc.on('started',(msg)=>{
                 resolve({pc:pc,msg:msg});
             });

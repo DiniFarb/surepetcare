@@ -1,7 +1,8 @@
+import pc from './test-setup';
+
 function start() {
     return new Promise(((resolve, reject) =>{
         try {
-            let pc = require('./test-setup');
             pc.on('started',(msg)=>{
                 pc.setDoorState('Mauzis Welt', 2);
                 resolve({pc:pc,msg:msg});

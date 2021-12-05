@@ -5,4 +5,6 @@ Array.prototype.addOnlyNew = function (arr) {
     return this;
 };
 
-module.exports = require('./lib/PetCare');
+import PetCare from './lib/PetCare.js';
+
+export default PetCare

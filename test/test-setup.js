@@ -1,7 +1,8 @@
-const PetCare = require('../index');
-require('dotenv').config();
+import PetCare from '../index.js';
+import { config } from 'dotenv';
+config();
 
-const petcareOptions = require('../options');
+import {options} from '../options.js';
 
 const petcare = function setup() {
     try {
@@ -9,7 +10,7 @@ const petcare = function setup() {
         const petcare = new PetCare({
               mail:process.env.MAIL,
               password:process.env.PASSWORD
-        },petcareOptions);
+        },options);
         return petcare;    
       } catch(err){
         console.error(err);
@@ -17,4 +18,4 @@ const petcare = function setup() {
       }
 }();
 
-module.exports = petcare;
+export default petcare;

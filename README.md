@@ -7,20 +7,14 @@
 
 This node module lets you connect to the sure petcare server and fetch/controll pet and device data. 
 
-## ALERT
-Petcare has problems with the timeline(see reviews in paly store) this affects also the behavior for this code:
-- Sometimes the`message` and `direct_message` listener is getting updates delayed 
-- The computed property `pets` can have wrong values  
+> :warning: **Important:** 
+>
+>Petcare has problems with the timeline(see reviews in paly store) this affects also the behavior for this code:
+>- Sometimes the `message` and `direct_message` listener is getting updates delayed 
+>- The computed property `pets` can have wrong values  
 
 ## TODO
 Still some tasks open but the code base is already usable 😉
-
-Planned/working on changes
- - create more tests
- - Check the reset feeder functions (they are still a bit bugy... )
- - Finish docu and exampels
- - Movement text function replace bit with string(state) value
- - Add more functions to PetCare class
 
 I use this module in a project to send/command the surepetcare data over a telegram chat. 
 You can find it here: https://github.com/Shokodev/mauzis
@@ -34,7 +28,7 @@ npm i node-surepetcare
 ## Basic Example
 
  ```js
-const PetCare = require('node-surepetcare');
+import PetCare from 'node-surepetcare';
 
 try {
 
@@ -195,8 +189,8 @@ as in the screen shot. (The number is your houshold id)
  const options = {
     update_polling_seconds: 10,
     message_throttle_ms: 100,
-    battery_full: 1.2,
-    battery_low: 0.9,
+    battery_full: 1.4,
+    battery_low: 1.15,
     login_cycle: '0 11,23 * * *',
     somethingWrongMsg: "öpis isch nid guet😑",
     successMsg: "ok 😊",
@@ -206,7 +200,7 @@ as in the screen shot. (The number is your houshold id)
     doorlockedAllText:"ganz zue",
     petInsideText: "dinne",
     petOutsideText: "dusse",
-    tareRightText: "links",
+    tareLeftText: "links",
     tareRightText: "rechts",
     tareBothText: "uf beidne site",
     doorIsAlready: (doorName, state) => `${doorName} isch dänk scho ${state}😝`,
@@ -218,16 +212,16 @@ as in the screen shot. (The number is your houshold id)
     unknownMovementText: (bit) => 
         bit === 2 ? "Het äuä öper d Hang durs törli gha..." : 
         "Es angers chätzli het id stube gluegt 😺",
-    petHasEatonText: (petName, left, right) => `${petName} hat gässe:\n ${left}g droche & ${right}g nass`,
+    petHasEatenText: (petName, left, right) => `${petName} hat gässe:\n ${left}g droche & ${right}g nass`,
     filledBowlText: (bowlName, left, right) => `${bowlName} gfüllt mit:\n ${left}g droche & ${right}g nass`, 
     resetFeederText: (bowlName, tareVal) => `${bowlName} isch ${tareVal} zrüggsetzt worde`,
-    batteryLowText: (deviceName) => `${deviceName} het fasch ke saft me 🙀`,
+    batteryLowText: () => `ignore`,
     petDrankText: (petName,val) => `${petName} het ${val}ml drunke💧`,
     felaquaFillText:(deviceName,val) => `${deviceName} mit ${val}ml befüllt`,
     felaquaReminderText: (deviceName) => `${deviceName} set neus wasser ha`,
     felaquaUnknownDrinkerText: (deviceName, val) => `Igrendöpper het ${val}ml drunke us ${deviceName}`,
     petWhereaboutText:(petName,where) => `${petName} isch ${where} ${where === "dinne" ? '😊': '🧐'}`
-} 
+}
  
  const petcare = new PetCare({
         mail:"your petcare mail",

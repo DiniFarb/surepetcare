@@ -3,10 +3,11 @@
  * interface to the sure petcare server 
  */
 
-const PetCareAPI = require('../lib/PetCareAPI');
-const Utils = require('../lib/Utils');
-const expect = require('expect.js');
-require('dotenv').config();
+import PetCareAPI from '../lib/PetCareAPI.js';
+import Utils from '../lib/Utils.js';
+import expect from 'expect.js';
+import { config } from 'dotenv';
+config();
 let api = null;
 let household = null;
 const utils = new Utils();
@@ -22,7 +23,7 @@ describe('Create API',()=>{
 });
 describe('Test login Petcare',()=>{
     it('Login',async ()=> {
-        login =  await api.login();
+        let login =  await api.login();
         expect(login).to.be.ok();
     });
     it('has user logged in user ID',async ()=> {
@@ -84,16 +85,16 @@ describe('Test set pet whereabout',()=>{
         expect(whereBit).to.be.a('number');
     });
     it('Set new whereabaout of this pet',async ()=> {
-        wherebit = household.pets[0].status.activity.where;
+        whereBit = household.pets[0].status.activity.where;
         let setTo = whereBit === utils.petPlaceCommands.INSIDE ?
         utils.petPlaceCommands.OUTSIDE :
         utils.petPlaceCommands.INSIDE 
-        result =  await api.setPetPlace(petId, setTo);
+        let result =  await api.setPetPlace(petId, setTo);
         expect(result).to.be.ok();
     });
     it('Set back whereabaout of this pet',async ()=> {
-        wherebit = household.pets[0].status.activity.where;
-        result =  await api.setPetPlace(petId, whereBit);
+        whereBit = household.pets[0].status.activity.where;
+        let result =  await api.setPetPlace(petId, whereBit);
         expect(result).to.be.ok();
     });
 });

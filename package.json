@@ -1,10 +1,11 @@
 {
   "name": "node-surepetcare",
-  "version": "0.2.4",
+  "version": "0.2.5.1",
+  "type": "module",
   "description": "Interact with sure petcare server",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon test-run.js",
+    "dev": "nodemon test/test-run.js",
     "test:main": "mocha test/petcare.main.test.js --exit",
     "test:api": "mocha test/petcare.api.test.js --exit"
   },
