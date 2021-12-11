@@ -1,3 +1,6 @@
 .github/
 node_modules/
 .env
+options.js
+test/
+CODE_OF_CPNDUCT.md
