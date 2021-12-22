@@ -62,8 +62,8 @@ function testmain(petcare){
         testPetplacing(petcare);
         testDoorCommants(petcare);
         //only if all feeders are opened
-        testResetAllFeeder(petcare);
-        testResetFeeder(petcare);
+        //testResetAllFeeder(petcare);
+        //testResetFeeder(petcare);
         testGetTimelineBackTo(petcare)
     });
 };
