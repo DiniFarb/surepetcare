@@ -1,6 +1,6 @@
 {
   "name": "node-surepetcare",
-  "version": "0.2.84",
+  "version": "0.2.85",
   "type": "module",
   "description": "Interact with sure petcare server",
   "main": "index.js",
@@ -24,8 +24,8 @@
     "url": "https://github.com/andreasvogt89/surepetcare/issues"
   },
   "dependencies": {
-    "node-cron": "^3.0.0",
-    "node-fetch": "^3.0.0"
+    "node-cron": "^3.0.2",
+    "node-fetch": "^3.3.0"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
